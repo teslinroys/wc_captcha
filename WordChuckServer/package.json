@@ -1,0 +1,14 @@
+{
+  "name": "NodejsWebApp1",
+  "version": "0.0.0",
+  "description": "NodejsWebApp1",
+  "main": "server.js",
+  "author": {
+    "name": "astkr_000",
+    "email": ""
+  },
+  "dependencies": {
+    "node-wordnet": "^0.1.5",
+    "wndb-with-exceptions": "^3.0.1"
+  }
+}
