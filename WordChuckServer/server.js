@@ -7,7 +7,6 @@ var port = process.env.port || 1337;
 http.createServer(function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello user\n');
-    
     //Define a wordnet object. Then use it to retrieve information about a synset.
     var wordnet = new WordNet();
     wordnet.lookup('simple', function (results) {

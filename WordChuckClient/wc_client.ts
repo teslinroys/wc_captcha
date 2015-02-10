@@ -24,7 +24,6 @@ class Captcha {
     public con: CanvasRenderingContext2D;
     public canvas: HTMLCanvasElement;
     public control_pts:Vector2[];
-
  /**
  * Constructs the interactive CAPTCHA element. 
  * @constructor
