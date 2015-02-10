@@ -36,7 +36,7 @@ class Captcha {
         this.control_pts = [new Vector2(250, 50), new Vector2(50, 450), new Vector2(450, 450)];
     }
 
-    /** This is a description of the foo function. */
+    /** This event handler redraws the canvas when it is clicked. */
     onMouseDown(e: MouseEvent) {
         var x, y;
         if (e.pageX || e.pageY) {
