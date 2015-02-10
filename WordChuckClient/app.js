@@ -1,29 +1,13 @@
-﻿var Greeter = (function () {
-    function Greeter(element) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-    Greeter.prototype.start = function () {
-        var _this = this;
-        this.timerToken = setInterval(function () {
-            return _this.span.innerHTML = new Date().toUTCString();
-        }, 500);
-    };
-
-    Greeter.prototype.stop = function () {
-        clearTimeout(this.timerToken);
-    };
-    return Greeter;
-})();
-
-var Vector2 = (function () {
+﻿var Vector2 = (function () {
+    /**
+    * Represents a 2D vector.
+    * @constructor
+    */
     function Vector2(x, y) {
         this.X = x;
         this.Y = y;
     }
+    /** Returns the distance between this vector and the input vector. */
     Vector2.prototype.distanceTo = function (v2) {
         var a = this.X - v2.X;
         var b = this.Y - v2.Y;
@@ -34,6 +18,10 @@ var Vector2 = (function () {
 })();
 
 var Captcha = (function () {
+    /**
+    * Constructs the interactive CAPTCHA element.
+    * @constructor
+    */
     function Captcha(c) {
         var _this = this;
         this.con = c.getContext('2d');
@@ -43,6 +31,7 @@ var Captcha = (function () {
         }, false);
         this.control_pts = [new Vector2(250, 50), new Vector2(50, 450), new Vector2(450, 450)];
     }
+    /** This is a description of the foo function. */
     Captcha.prototype.onMouseDown = function (e) {
         var x, y;
         if (e.pageX || e.pageY) {
@@ -82,6 +71,7 @@ var Captcha = (function () {
         }
     };
 
+    /** Draws the CAPTCHA element to the specified canvas. */
     Captcha.prototype.draw = function () {
         this.con.clearRect(0, 0, this.con.canvas.width, this.con.canvas.height);
         this.con.beginPath();
@@ -95,6 +85,7 @@ var Captcha = (function () {
         this.con.stroke();
     };
 
+    /** Returns the cursor position relative to the canvas. */
     Captcha.prototype.getCursorPosition = function (e) {
         var x;
         var y;
@@ -113,6 +104,7 @@ var Captcha = (function () {
         return [x, y];
     };
 
+    /** Returns whether or not a given point (e.g. mouse position) is inside a triangular area. */
     Captcha.prototype.pointInTriangle = function (point, v1, v2, v3) {
         var A = (-v2.Y * v3.X + v1.Y * (-v2.X + v3.X) + v1.X * (v2.Y - v3.Y) + v2.X * v3.Y) / 2;
         var sign = A < 0 ? -1 : 1;
@@ -125,6 +117,7 @@ var Captcha = (function () {
 
 var captcha;
 
+/** Loads CAPTCHA element. */
 window.onload = function () {
     var c = document.getElementById('captcha');
     captcha = new Captcha(c);

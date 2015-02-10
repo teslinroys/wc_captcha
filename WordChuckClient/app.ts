@@ -1,34 +1,17 @@
-﻿class Greeter {
-    element: HTMLElement;
-    span: HTMLElement;
-    timerToken: number;
-
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-
-    start() {
-        this.timerToken = setInterval(() => this.span.innerHTML = new Date().toUTCString(), 500);
-    }
-
-    stop() {
-        clearTimeout(this.timerToken);
-    }
-}
-
-class Vector2 {
+﻿class Vector2 {
     public X: number;
     public Y: number;
 
+     /**
+ * Represents a 2D vector.
+ * @constructor
+ */
     constructor(x: number, y: number) {
         this.X = x;
         this.Y = y;
     }
 
+    /** Returns the distance between this vector and the input vector. */
     distanceTo(v2: Vector2): number {
         var a = this.X - v2.X;
         var b = this.Y - v2.Y;
@@ -40,9 +23,12 @@ class Vector2 {
 class Captcha {
     public con: CanvasRenderingContext2D;
     public canvas: HTMLCanvasElement;
-
     public control_pts:Vector2[];
 
+ /**
+ * Constructs the interactive CAPTCHA element. 
+ * @constructor
+ */
     constructor(c: HTMLCanvasElement) {
         this.con = c.getContext('2d');
         this.canvas = c;
@@ -50,6 +36,7 @@ class Captcha {
         this.control_pts = [new Vector2(250, 50), new Vector2(50, 450), new Vector2(450, 450)];
     }
 
+    /** This is a description of the foo function. */
     onMouseDown(e: MouseEvent) {
         var x, y;
         if (e.pageX || e.pageY) {
@@ -93,6 +80,7 @@ class Captcha {
         }
     }
 
+    /** Draws the CAPTCHA element to the specified canvas. */
     draw() {
         this.con.clearRect(0, 0, this.con.canvas.width, this.con.canvas.height);
         this.con.beginPath();
@@ -106,6 +94,7 @@ class Captcha {
         this.con.stroke();
     }
 
+    /** Returns the cursor position relative to the canvas. */
     getCursorPosition(e) {
     var x;
     var y;
@@ -126,6 +115,7 @@ class Captcha {
     return [x, y]
 }
 
+    /** Returns whether or not a given point (e.g. mouse position) is inside a triangular area. */
     pointInTriangle (point:Vector2, v1:Vector2, v2:Vector2, v3:Vector2) : boolean {
         var A = (-v2.Y * v3.X + v1.Y * (-v2.X + v3.X) + v1.X * (v2.Y - v3.Y) + v2.X * v3.Y) / 2;
         var sign = A < 0 ? -1 : 1;
@@ -137,6 +127,7 @@ class Captcha {
 
 var captcha;
 
+/** Loads CAPTCHA element. */
 window.onload = () => {
     var c = <HTMLCanvasElement> document.getElementById('captcha');
     captcha = new Captcha(c);
