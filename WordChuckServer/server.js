@@ -17,5 +17,7 @@ http.createServer(function (req, res) {
             console.log(result.synonyms);
             console.log(result.pos);
             console.log(result.gloss);
-                }});
+        })
+    });
+ 
 }).listen(port);
