@@ -1,14 +1,16 @@
 {
-  "name": "NodejsWebApp1",
+  "name": "wc_captcha",
   "version": "0.0.0",
-  "description": "NodejsWebApp1",
+  "description": "wc_captcha",
   "main": "server.js",
   "author": {
     "name": "astkr_000",
     "email": ""
   },
   "dependencies": {
-    "node-wordnet": "^0.1.5",
-    "wndb-with-exceptions": "^3.0.1"
+    "WNdb": "3.1.1",
+    "natural": "0.2.0",
+    "random-words": "0.0.1",
+    "wordpos": "^0.1.15"
   }
 }

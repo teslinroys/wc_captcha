@@ -32,7 +32,8 @@ class Captcha {
         this.con = c.getContext('2d');
         this.canvas = c;
         this.canvas.addEventListener("mousedown", (event: MouseEvent) => this.onMouseDown(event), false);
-        this.control_pts = [new Vector2(250, 50), new Vector2(50, 450), new Vector2(450, 450)];
+        var dEdge = 25;
+        this.control_pts = [new Vector2(dEdge, dEdge), new Vector2(200+dEdge, dEdge), new Vector2(100+dEdge, 200+dEdge)];
     }
 
     /** This event handler redraws the canvas when it is clicked. */
@@ -61,6 +62,7 @@ class Captcha {
         this.draw();
         if (b == true) {
             this.con.fillText("m=" + Math.round(mp.distanceTo(m)) +" c=" + Math.round(mp.distanceTo(c)) + " r=" + Math.round(mp.distanceTo(r)), 50, 50, 80);
+            
 
             this.con.beginPath();
             this.con.moveTo(m.X, m.Y);
@@ -83,6 +85,9 @@ class Captcha {
     draw() {
         this.con.clearRect(0, 0, this.con.canvas.width, this.con.canvas.height);
         this.con.beginPath();
+        this.con.textAlign = 'center';
+        this.con.fillText("beat the drum", this.control_pts[0].X, this.control_pts[0].Y, 250);
+       // this.drawTextBG(this.con, "beat the drum", '12pt Calibri', this.control_pts[0].X, this.control_pts[0].Y);
         this.con.moveTo(this.control_pts[0].X, this.control_pts[0].Y);
         for (var i = 0; i < this.control_pts.length; i++) {
             this.con.lineTo(this.control_pts[i].X, this.control_pts[i].Y);
@@ -112,6 +117,36 @@ class Captcha {
     y -= this.con.canvas.offsetTop;
 
     return [x, y]
+}
+
+/// Draws text with a background
+    drawTextBG(ctx, txt, font, x, y) {
+    /// lets save current state as we make a lot of changes        
+    ctx.save();
+
+    /// set font
+    ctx.font = font;
+
+    /// draw text from top - makes life easier at the moment
+    ctx.textBaseline = 'top';
+
+    /// color for background
+    ctx.fillStyle = '#f50';
+
+    /// get width of text
+    var width = ctx.measureText(txt).width;
+
+    /// draw background rect assuming height of font
+    ctx.fillRect(x, y, width, parseInt(font, 10));
+
+    /// text color
+    ctx.fillStyle = '#000';
+
+    /// draw text on top
+    ctx.fillText(txt, x, y);
+
+    /// restore original state
+    ctx.restore();
 }
 
     /** Returns whether or not a given point (e.g. mouse position) is inside a triangular area. */
